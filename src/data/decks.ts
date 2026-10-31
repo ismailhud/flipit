@@ -1,0 +1,52 @@
+import type { Deck } from '@/types';
+
+export const decks: Deck[] = [
+  {
+    id: '1',
+    title: 'SQL Basics',
+    course: 'Databases',
+    createdAt: '2026-10-02',
+    cardCount: 24,
+    mastery: 'learning',
+    coverUrl: 'https://picsum.photos/seed/sql/600/400',
+    description: 'Keys, joins and normalisation for the midterm.',
+  },
+  {
+    id: '2',
+    title: 'React Hooks',
+    course: 'Cross-Platform Development',
+    createdAt: '2026-10-05',
+    cardCount: 18,
+    mastery: 'new',
+    coverUrl: 'https://picsum.photos/seed/hooks/600/400',
+  },
+  {
+    id: '3',
+    title: 'OSI Model',
+    course: 'Computer Networks',
+    createdAt: '2026-10-08',
+    cardCount: 14,
+    mastery: 'mastered',
+    coverUrl: 'https://picsum.photos/seed/osi/600/400',
+    description: 'The seven layers and their protocols.',
+  },
+  {
+    id: '4',
+    title: 'Phrasal Verbs',
+    course: 'English',
+    createdAt: '2026-10-11',
+    cardCount: 40,
+    mastery: 'learning',
+    coverUrl: 'https://picsum.photos/seed/verbs/600/400',
+  },
+  {
+    id: '5',
+    title: 'Data Structures',
+    course: 'Algorithms',
+    createdAt: '2026-10-14',
+    cardCount: 31,
+    mastery: 'new',
+    coverUrl: 'https://picsum.photos/seed/structures/600/400',
+    description: 'Stacks, queues, trees and Big-O.',
+  },
+];
