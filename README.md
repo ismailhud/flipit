@@ -14,4 +14,4 @@ npx expo start
 - [ ] Tabs (Decks, Profile) and a modal
 - [ ] Login and data in Supabase
 - [ ] Card photos and haptic feedback
-- [ ] Android APK
+- [ ] Android APKgit add .

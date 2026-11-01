@@ -8,7 +8,7 @@ export const decks: Deck[] = [
     createdAt: '2026-10-02',
     cardCount: 24,
     mastery: 'learning',
-    coverUrl: 'https://picsum.photos/seed/sql/600/400',
+    coverUrl: 'https://media.istockphoto.com/id/1936204059/photo/developer-or-programmers-text-editor-showing-sql-structured-query-language-code-on-computer.jpg?s=612x612&w=0&k=20&c=KZvV2njlaAbMDHcgLb5fqnG5MqFwvvVq_T7PK60MEeI=',
     description: 'Keys, joins and normalisation for the midterm.',
   },
   {
@@ -18,7 +18,7 @@ export const decks: Deck[] = [
     createdAt: '2026-10-05',
     cardCount: 18,
     mastery: 'new',
-    coverUrl: 'https://picsum.photos/seed/hooks/600/400',
+    coverUrl: 'https://miro.medium.com/v2/resize:fit:1400/0*lw3okrHvGKRrZJ9F.jpg',
   },
   {
     id: '3',
@@ -27,7 +27,7 @@ export const decks: Deck[] = [
     createdAt: '2026-10-08',
     cardCount: 14,
     mastery: 'mastered',
-    coverUrl: 'https://picsum.photos/seed/osi/600/400',
+    coverUrl: 'https://plus.unsplash.com/premium_photo-1733306493254-52b143296396?fm=jpg&q=60&w=3000&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=NHwxMjA3fDA%3D',
     description: 'The seven layers and their protocols.',
   },
   {
@@ -37,7 +37,7 @@ export const decks: Deck[] = [
     createdAt: '2026-10-11',
     cardCount: 40,
     mastery: 'learning',
-    coverUrl: 'https://picsum.photos/seed/verbs/600/400',
+    coverUrl: 'https://img.magnific.com/free-photo/english-british-england-language-education-concept_53876-133734.jpg?semt=ais_hybrid&w=740&q=80',
   },
   {
     id: '5',
@@ -46,7 +46,7 @@ export const decks: Deck[] = [
     createdAt: '2026-10-14',
     cardCount: 31,
     mastery: 'new',
-    coverUrl: 'https://picsum.photos/seed/structures/600/400',
+    coverUrl: 'https://st2.depositphotos.com/33294434/47171/i/450/depositphotos_471715874-stock-photo-network-connection-data-structure-information.jpg',
     description: 'Stacks, queues, trees and Big-O.',
   },
 ];
