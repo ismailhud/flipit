@@ -8,7 +8,7 @@ npx expo start
 
 ## Features
 - [x] List of decks (mock data)
-- [ ] Deck details screen
+- [x] Deck details component (screen comes with navigation in Week 7)
 - [ ] Add and edit decks and cards
 - [ ] Quiz mode with card flip
 - [ ] Tabs (Decks, Profile) and a modal
