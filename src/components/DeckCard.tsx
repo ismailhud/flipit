@@ -1,25 +1,52 @@
-import { Image, Pressable, StyleSheet, Text, View } from 'react-native';
-import type { Deck } from '@/types';
+import { FontSize, Radius, Spacing } from "@/constants/theme";
+import { useTheme } from "@/hooks/use-theme";
+import type { Deck } from "@/types";
+import {
+  Image,
+  Pressable,
+  StyleProp,
+  StyleSheet,
+  Text,
+  View,
+  ViewStyle,
+} from "react-native";
 
 type DeckCardProps = {
   deck: Deck;
+  style?: StyleProp<ViewStyle>;
 };
 
-export default function DeckCard({ deck }: DeckCardProps) {
+export default function DeckCard({ deck, style }: DeckCardProps) {
+  const theme = useTheme();
+
   return (
     <Pressable
-      onPress={() => console.log('Open', deck.id)}
-      style={({ pressed }) => [styles.card, pressed && styles.pressed]}
+      onPress={() => console.log("Open", deck.id)}
+      style={({ pressed }) => [
+        styles.card,
+        { backgroundColor: theme.card, borderColor: theme.border },
+        pressed && styles.pressed,
+        style,
+      ]}
     >
-      <Image
-        source={{ uri: deck.coverUrl }}
-        style={styles.image}
-        resizeMode="cover"
-      />
+      <View>
+        <Image
+          source={{ uri: deck.coverUrl }}
+          style={styles.photo}
+          resizeMode="cover"
+        />
+        <View style={[styles.badge, { backgroundColor: theme.primary }]}>
+          <Text style={[styles.badgeText, { color: theme.onPrimary }]}>
+            {deck.mastery}
+          </Text>
+        </View>
+      </View>
       <View style={styles.body}>
-        <Text style={styles.title}>{deck.title}</Text>
-        <Text style={styles.details}>
-          {deck.course} · {deck.cardCount} cards · {deck.mastery}
+        <Text style={[styles.title, { color: theme.text }]} numberOfLines={1}>
+          {deck.title}
+        </Text>
+        <Text style={[styles.details, { color: theme.muted }]}>
+          {deck.course} · {deck.cardCount} cards
         </Text>
       </View>
     </Pressable>
@@ -27,10 +54,23 @@ export default function DeckCard({ deck }: DeckCardProps) {
 }
 
 const styles = StyleSheet.create({
-  card: { borderRadius: 12, overflow: 'hidden', backgroundColor: '#E6EEF7' },
+  card: {
+    borderRadius: Radius.md,
+    borderWidth: 1,
+    overflow: "hidden",
+  },
   pressed: { opacity: 0.6 },
-  image: { width: '100%', aspectRatio: 16 / 9 },
-  body: { padding: 12, gap: 4 },
-  title: { fontSize: 18, fontWeight: 'bold' },
-  details: { color: '#5B6475' },
+  photo: { width: "100%", aspectRatio: 16 / 9 },
+  badge: {
+    position: "absolute",
+    top: Spacing.sm,
+    right: Spacing.sm,
+    paddingHorizontal: Spacing.sm,
+    paddingVertical: Spacing.xs,
+    borderRadius: Radius.pill,
+  },
+  badgeText: { fontSize: FontSize.small, fontWeight: "600" },
+  body: { padding: Spacing.md, gap: Spacing.xs },
+  title: { fontSize: FontSize.title, fontWeight: "bold" },
+  details: { fontSize: FontSize.small },
 });
