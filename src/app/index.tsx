@@ -1,12 +1,11 @@
 import DeckCard from "@/components/DeckCard";
+import SummaryRow from "@/components/SummaryRow";
 import { Spacing } from "@/constants/theme";
 import { decks } from "@/data/decks";
-import { useTheme } from "@/hooks/use-theme";
-import { ScrollView, Text } from "react-native";
+import { ScrollView } from "react-native";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 
 export default function HomeScreen() {
-  const theme = useTheme();
   const insets = useSafeAreaInsets();
 
   return (
@@ -20,7 +19,7 @@ export default function HomeScreen() {
         alignSelf: "center",
       }}
     >
-      <Text style={{ color: theme.text }}>{decks.length} decks</Text>
+      <SummaryRow decks={decks} />
       {decks.map((deck) => (
         <DeckCard key={deck.id} deck={deck} />
       ))}
