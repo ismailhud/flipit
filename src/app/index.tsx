@@ -22,6 +22,7 @@ import { useSafeAreaInsets } from "react-native-safe-area-context";
 
 type Status = "loading" | "error" | "ready";
 type Filter = "all" | Mastery;
+type Sort = "none" | "newest" | "cards";
 
 const FILTERS: Filter[] = ["all", "new", "learning", "mastered"];
 
@@ -36,6 +37,7 @@ export default function HomeScreen() {
   const [attempt, setAttempt] = useState(0);
   const [refreshing, setRefreshing] = useState(false);
   const [filter, setFilter] = useState<Filter>("all");
+  const [sort, setSort] = useState<Sort>("none");
 
   useEffect(() => {
     let ignore = false;
@@ -99,8 +101,16 @@ export default function HomeScreen() {
     ]);
   }
 
-  const visible =
+  const filtered =
     filter === "all" ? decks : decks.filter((deck) => deck.mastery === filter);
+
+  // sort a copy, so the original order in state never changes
+  const visible =
+    sort === "newest"
+      ? [...filtered].sort((a, b) => b.createdAt.localeCompare(a.createdAt))
+      : sort === "cards"
+        ? [...filtered].sort((a, b) => b.cardCount - a.cardCount)
+        : filtered;
 
   const columns = width >= 900 ? 3 : width >= 600 ? 2 : 1;
   const available = (listWidth || width) - 2 * Spacing.md;
@@ -164,6 +174,18 @@ export default function HomeScreen() {
                 onPress={() => setFilter(item)}
               />
             ))}
+          </View>
+          <View style={styles.chips}>
+            <FilterChip
+              label="Newest"
+              selected={sort === "newest"}
+              onPress={() => setSort(sort === "newest" ? "none" : "newest")}
+            />
+            <FilterChip
+              label="Most cards"
+              selected={sort === "cards"}
+              onPress={() => setSort(sort === "cards" ? "none" : "cards")}
+            />
           </View>
         </View>
       }
