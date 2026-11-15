@@ -28,6 +28,7 @@ export default function HomeScreen() {
   const [decks, setDecks] = useState<Deck[]>([]);
   const [status, setStatus] = useState<Status>("loading");
   const [attempt, setAttempt] = useState(0);
+  const [refreshing, setRefreshing] = useState(false);
 
   useEffect(() => {
     let ignore = false;
@@ -55,6 +56,18 @@ export default function HomeScreen() {
   function retry() {
     setStatus("loading");
     setAttempt((a) => a + 1);
+  }
+
+  async function refresh() {
+    setRefreshing(true);
+    try {
+      const data = await fetchDecks();
+      setDecks(data);
+    } catch {
+      // keep the old items if the refresh fails
+    } finally {
+      setRefreshing(false);
+    }
   }
 
   const columns = width >= 900 ? 3 : width >= 600 ? 2 : 1;
@@ -101,6 +114,8 @@ export default function HomeScreen() {
       renderItem={({ item }) => (
         <DeckCard deck={item} style={{ width: cardWidth }} />
       )}
+      refreshing={refreshing}
+      onRefresh={refresh}
       ListHeaderComponent={<SummaryRow decks={decks} />}
       ListHeaderComponentStyle={{ marginBottom: Spacing.md }}
       ListEmptyComponent={
