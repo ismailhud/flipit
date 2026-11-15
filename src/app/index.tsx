@@ -1,4 +1,5 @@
 import DeckCard from "@/components/DeckCard";
+import EmptyState from "@/components/EmptyState";
 import SummaryRow from "@/components/SummaryRow";
 import { Spacing } from "@/constants/theme";
 import { decks } from "@/data/decks";
@@ -30,8 +31,15 @@ export default function HomeScreen() {
       )}
       ListHeaderComponent={<SummaryRow decks={decks} />}
       ListHeaderComponentStyle={{ marginBottom: Spacing.md }}
+      ListEmptyComponent={
+        <EmptyState
+          title="No decks yet"
+          message="Your decks will appear here."
+        />
+      }
       ItemSeparatorComponent={() => <View style={{ height: Spacing.md }} />}
       contentContainerStyle={{
+        flexGrow: 1,
         padding: Spacing.md,
         paddingBottom: Spacing.md + insets.bottom,
       }}
