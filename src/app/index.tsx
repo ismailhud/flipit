@@ -1,10 +1,11 @@
 import DeckCard from "@/components/DeckCard";
 import EmptyState from "@/components/EmptyState";
+import FilterChip from "@/components/FilterChip";
 import SummaryRow from "@/components/SummaryRow";
 import { FontSize, Radius, Spacing } from "@/constants/theme";
 import { fetchDecks } from "@/data/api";
 import { useTheme } from "@/hooks/use-theme";
-import type { Deck } from "@/types";
+import type { Deck, Mastery } from "@/types";
 import { useEffect, useState } from "react";
 import {
   ActivityIndicator,
@@ -18,6 +19,9 @@ import {
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 
 type Status = "loading" | "error" | "ready";
+type Filter = "all" | Mastery;
+
+const FILTERS: Filter[] = ["all", "new", "learning", "mastered"];
 
 export default function HomeScreen() {
   const theme = useTheme();
@@ -29,6 +33,7 @@ export default function HomeScreen() {
   const [status, setStatus] = useState<Status>("loading");
   const [attempt, setAttempt] = useState(0);
   const [refreshing, setRefreshing] = useState(false);
+  const [filter, setFilter] = useState<Filter>("all");
 
   useEffect(() => {
     let ignore = false;
@@ -70,6 +75,9 @@ export default function HomeScreen() {
     }
   }
 
+  const visible =
+    filter === "all" ? decks : decks.filter((deck) => deck.mastery === filter);
+
   const columns = width >= 900 ? 3 : width >= 600 ? 2 : 1;
   const available = (listWidth || width) - 2 * Spacing.md;
   const cardWidth = Math.floor(
@@ -109,20 +117,41 @@ export default function HomeScreen() {
       numColumns={columns}
       columnWrapperStyle={columns > 1 ? { gap: Spacing.md } : undefined}
       onLayout={(event) => setListWidth(event.nativeEvent.layout.width)}
-      data={decks}
+      data={visible}
       keyExtractor={(deck) => deck.id}
       renderItem={({ item }) => (
         <DeckCard deck={item} style={{ width: cardWidth }} />
       )}
       refreshing={refreshing}
       onRefresh={refresh}
-      ListHeaderComponent={<SummaryRow decks={decks} />}
+      ListHeaderComponent={
+        <View style={styles.header}>
+          <SummaryRow decks={decks} />
+          <View style={styles.chips}>
+            {FILTERS.map((item) => (
+              <FilterChip
+                key={item}
+                label={item === "all" ? "All" : item}
+                selected={filter === item}
+                onPress={() => setFilter(item)}
+              />
+            ))}
+          </View>
+        </View>
+      }
       ListHeaderComponentStyle={{ marginBottom: Spacing.md }}
       ListEmptyComponent={
-        <EmptyState
-          title="No decks yet"
-          message="Your decks will appear here."
-        />
+        filter === "all" ? (
+          <EmptyState
+            title="No decks yet"
+            message="Your decks will appear here."
+          />
+        ) : (
+          <EmptyState
+            title={`No ${filter} decks`}
+            message="Choose another status."
+          />
+        )
       }
       ItemSeparatorComponent={() => <View style={{ height: Spacing.md }} />}
       contentContainerStyle={{
@@ -149,4 +178,6 @@ const styles = StyleSheet.create({
     borderRadius: Radius.pill,
   },
   buttonText: { fontSize: FontSize.body, fontWeight: "600" },
+  header: { gap: Spacing.md },
+  chips: { flexDirection: "row", flexWrap: "wrap", gap: Spacing.sm },
 });
