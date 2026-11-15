@@ -9,7 +9,9 @@ import type { Deck, Mastery } from "@/types";
 import { useEffect, useState } from "react";
 import {
   ActivityIndicator,
+  Alert,
   FlatList,
+  Platform,
   Pressable,
   StyleSheet,
   Text,
@@ -75,6 +77,28 @@ export default function HomeScreen() {
     }
   }
 
+  function removeDeck(id: string) {
+    setDecks((list) => list.filter((deck) => deck.id !== id));
+  }
+
+  function confirmDelete(deck: Deck) {
+    if (Platform.OS === "web") {
+      // Alert.alert does nothing in the browser, so use the browser's dialog
+      if (window.confirm(`Delete "${deck.title}"?`)) {
+        removeDeck(deck.id);
+      }
+      return;
+    }
+    Alert.alert("Delete deck?", `"${deck.title}" will be removed.`, [
+      { text: "Cancel", style: "cancel" },
+      {
+        text: "Delete",
+        style: "destructive",
+        onPress: () => removeDeck(deck.id),
+      },
+    ]);
+  }
+
   const visible =
     filter === "all" ? decks : decks.filter((deck) => deck.mastery === filter);
 
@@ -120,7 +144,11 @@ export default function HomeScreen() {
       data={visible}
       keyExtractor={(deck) => deck.id}
       renderItem={({ item }) => (
-        <DeckCard deck={item} style={{ width: cardWidth }} />
+        <DeckCard
+          deck={item}
+          style={{ width: cardWidth }}
+          onLongPress={() => confirmDelete(item)}
+        />
       )}
       refreshing={refreshing}
       onRefresh={refresh}
