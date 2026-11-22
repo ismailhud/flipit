@@ -14,7 +14,8 @@ npx expo start
 ## Features
 
 - [x] List of decks (fake API with mock data)
-- [x] Deck details component (screen comes with navigation in Week 7)
+- [x] Deck details screen (`/deck/[id]`) opened from the list
+- [x] About screen and a not-found screen for wrong addresses
 - [x] Shared theme with light and dark mode
 - [x] Responsive layout (1, 2 or 3 columns)
 - [x] FlatList with header, empty, loading and error states
