@@ -159,7 +159,7 @@ export default function HomeScreen() {
         <DeckCard
           deck={item}
           style={{ width: cardWidth }}
-                    onPress={() =>
+          onPress={() =>
             router.push({ pathname: "/deck/[id]", params: { id: item.id } })
           }
           onLongPress={() => confirmDelete(item)}
