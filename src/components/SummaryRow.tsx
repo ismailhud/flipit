@@ -28,10 +28,20 @@ export default function SummaryRow({ decks }: SummaryRowProps) {
             { backgroundColor: theme.card, borderColor: theme.border },
           ]}
         >
-          <Text style={[styles.value, { color: theme.primary }]}>
+          <Text
+            style={[styles.value, { color: theme.primary }]}
+            numberOfLines={1}
+            adjustsFontSizeToFit
+            minimumFontScale={0.5}
+          >
             {item.value}
           </Text>
-          <Text style={[styles.label, { color: theme.muted }]}>
+          <Text
+            style={[styles.label, { color: theme.muted }]}
+            numberOfLines={1}
+            adjustsFontSizeToFit
+            minimumFontScale={0.5}
+          >
             {item.label}
           </Text>
         </View>
@@ -46,6 +56,7 @@ const styles = StyleSheet.create({
     flex: 1,
     alignItems: "center",
     paddingVertical: Spacing.md,
+    paddingHorizontal: Spacing.xs,
     borderRadius: Radius.md,
     borderWidth: 1,
   },
