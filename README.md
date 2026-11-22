@@ -4,6 +4,9 @@ Flipit is a flashcard app for students to create decks for their courses and fil
 
 ## Screenshots
 
+![Home in light mode](docs/home-light.png)
+![Home in dark mode](docs/home-dark.png)
+
 
 
 ## Run the project
