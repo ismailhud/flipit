@@ -1,3 +1,4 @@
+import { FontSize } from "@/constants/theme";
 import { useTheme } from "@/hooks/use-theme";
 import { Link, Stack } from "expo-router";
 import { StatusBar } from "expo-status-bar";
@@ -20,7 +21,7 @@ export default function RootLayout() {
           options={{
             title: "My decks",
             headerRight: () => (
-              <Link href="/about" style={{ color: theme.primary, fontSize: 16 }}>
+              <Link href="/about" style={{ color: theme.primary, fontSize: FontSize.body }}>
                 About
               </Link>
             ),
