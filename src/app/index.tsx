@@ -6,6 +6,7 @@ import { FontSize, Radius, Spacing } from "@/constants/theme";
 import { fetchDecks } from "@/data/api";
 import { useTheme } from "@/hooks/use-theme";
 import type { Deck, Mastery } from "@/types";
+import { useRouter } from "expo-router";
 import { useEffect, useState } from "react";
 import {
   ActivityIndicator,
@@ -28,6 +29,7 @@ const FILTERS: Filter[] = ["all", "new", "learning", "mastered"];
 
 export default function HomeScreen() {
   const theme = useTheme();
+  const router = useRouter();
   const insets = useSafeAreaInsets();
   const { width } = useWindowDimensions();
   const [listWidth, setListWidth] = useState(0);
@@ -157,6 +159,9 @@ export default function HomeScreen() {
         <DeckCard
           deck={item}
           style={{ width: cardWidth }}
+                    onPress={() =>
+            router.push({ pathname: "/deck/[id]", params: { id: item.id } })
+          }
           onLongPress={() => confirmDelete(item)}
         />
       )}

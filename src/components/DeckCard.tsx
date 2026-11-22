@@ -14,20 +14,26 @@ import {
 type DeckCardProps = {
   deck: Deck;
   style?: StyleProp<ViewStyle>;
+  onPress?: () => void;
   onLongPress?: () => void;
 };
 
-export default function DeckCard({ deck, style, onLongPress }: DeckCardProps) {
+export default function DeckCard({
+  deck,
+  style,
+  onPress,
+  onLongPress,
+}: DeckCardProps) {
   const theme = useTheme();
 
   return (
     <Pressable
-      onPress={() => console.log("Open", deck.id)}
+      onPress={onPress}
       onLongPress={onLongPress}
       android_ripple={{ color: theme.border }}
       accessibilityRole="button"
       accessibilityLabel={`${deck.title}, ${deck.course}, ${deck.cardCount} cards, ${deck.mastery}`}
-      accessibilityHint="Long press to delete"
+      accessibilityHint="Opens the deck. Long press to delete"
       style={({ pressed }) => [
         styles.card,
         { backgroundColor: theme.card, borderColor: theme.border },
