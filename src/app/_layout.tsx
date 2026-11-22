@@ -27,6 +27,7 @@ export default function RootLayout() {
           }}
         />
         <Stack.Screen name="about" options={{ title: "About" }} />
+        <Stack.Screen name="deck/[id]" options={{ title: "" }} />
       </Stack>
     </>
   );
