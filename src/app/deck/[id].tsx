@@ -3,15 +3,32 @@ import { FontSize, Radius, Spacing } from "@/constants/theme";
 import { getDeck } from "@/data/api";
 import { useTheme } from "@/hooks/use-theme";
 import { formatDate } from "@/utils/format";
-import { Stack, useLocalSearchParams } from "expo-router";
-import { Image, ScrollView, StyleSheet, Text, View } from "react-native";
+import { Stack, useLocalSearchParams, useRouter } from "expo-router";
+import {
+    Image,
+    Pressable,
+    ScrollView,
+    StyleSheet,
+    Text,
+    View,
+} from "react-native";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 
 export default function DeckDetailsScreen() {
   const { id } = useLocalSearchParams<{ id: string }>();
   const theme = useTheme();
   const insets = useSafeAreaInsets();
+  const router = useRouter();
   const deck = getDeck(id);
+
+  function backToList() {
+    // opened directly (new tab, deep link): there is no screen to go back to
+    if (router.canGoBack()) {
+      router.back();
+    } else {
+      router.replace("/");
+    }
+  }
 
   if (!deck) {
     return (
@@ -77,6 +94,20 @@ export default function DeckDetailsScreen() {
             {deck.description ?? "No notes for this deck."}
           </Text>
         </View>
+
+        <Pressable
+          onPress={backToList}
+          accessibilityRole="button"
+          style={({ pressed }) => [
+            styles.button,
+            { borderColor: theme.primary },
+            pressed && styles.pressed,
+          ]}
+        >
+          <Text style={[styles.buttonText, { color: theme.primary }]}>
+            Back to the list
+          </Text>
+        </Pressable>
       </View>
     </ScrollView>
   );
@@ -105,4 +136,12 @@ const styles = StyleSheet.create({
   statText: { fontSize: FontSize.small, fontWeight: "600" },
   heading: { fontSize: FontSize.title, fontWeight: "bold" },
   body: { fontSize: FontSize.body, lineHeight: 24 },
+  button: {
+    alignItems: "center",
+    paddingVertical: Spacing.sm,
+    borderRadius: Radius.pill,
+    borderWidth: 1,
+  },
+  buttonText: { fontSize: FontSize.body, fontWeight: "600" },
+  pressed: { opacity: 0.6 },
 });
