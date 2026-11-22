@@ -10,3 +10,7 @@ export async function fetchDecks(
   if (options.fail) throw new Error("Could not load decks");
   return decks;
 }
+
+export function getDeck(id: string): Deck | undefined {
+  return decks.find((deck) => deck.id === id);
+}
